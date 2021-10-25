@@ -192,11 +192,11 @@ int menuInformations() {
     printf("Auteur :");
     printf("\n");
     printf("\n");
-    printf("- Bastien Lewers : Git lien");
+    printf("- Bastien Lewers : https://github.com/CapDRAKE");
     printf("\n");
-    printf("- 3rd Man : Git lien");
+    printf("- Nicolas Cortial : https://github.com/IreshDeragon");
     printf("\n");
-    printf("- Allan Barbot : Git lien");
+    printf("- Allan Barbot : https://github.com/CurtainShow");
     printf("\n");
     printf("\n");
     printf("Durée du projet : 2 mois");
