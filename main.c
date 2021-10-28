@@ -14,6 +14,10 @@ struct joueur {
 //Déclaration de notre structure joueur
 typedef struct joueur joueur;
 
+void attack(){
+    
+}
+
 void droite(int **mat) {
 
 }
