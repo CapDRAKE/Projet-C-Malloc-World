@@ -1,6 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//Structure du joueur
+struct joueur {
+    int niveau;
+    float experience;
+    int hp;
+    int hpMAX;
+    int inventaire[10][2];
+    int** position;
+};
+
+//Déclaration de notre structure joueur
+typedef struct joueur joueur;
+
 void droite(int **mat) {
 
 }
