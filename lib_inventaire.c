@@ -10,6 +10,7 @@ item* initWeapon (int code);
 item* initResources (int code);
 item* initTools (int code);
 item* initPotion (int code);
+int putInInventory(item** inventory, int code);
 
 //ok
 
@@ -27,6 +28,21 @@ item** initinventory(){
         res[i] = 0;
     }
     return res;
+}
+// Ajoute un item à l'inventaire, retourne 1 si réussi, sinon retourne 0
+int putInInventory(item** inventory, int code){
+    for (int i = 0; i <10 ;i++){
+        if(inventory[i]==0){
+            inventory[i]= initItems(code);
+            return 1;
+        }else{
+            if(codeType(code)== RESSOURCE && code == inventory[i]->code && inventory[i]->durabilite <20){
+                inventory[i]->durabilite +=1;
+                return 1;
+            }
+        }
+    }
+    return 0;
 }
 
 itemType codeType(int code){ // retourne le type correspondant au code
