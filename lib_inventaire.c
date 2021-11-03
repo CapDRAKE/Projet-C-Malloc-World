@@ -1,9 +1,8 @@
 #include <mallib.c>
 
 typedef struct coffre coffre;
-typedef struct inventory inventory;
 
-inventory* initinventory();
+item** initinventory();
 itemType codeType(int code);
 item* initItems(int code);
 item* initArmor(int code);
@@ -20,18 +19,14 @@ struct coffre{
     listInt* value;
     listInt** hashtable;
 };
-struct inventory{
-    item** codes;
-    int* quantity;
-};
 
-inventory* initinventory(){
-    item** codes = malloc(sizeof(item*)*10);
-    int* quantity = malloc(sizeof(int)*10);
+// l'inventaire est juste un tableau de pointeurs d'items
+item** initinventory(){ 
+    item** res = malloc(sizeof(item*)*10);
     for (int i = 0; i<10; i++){
-        codes[i] = 0;
-        quantity[i]=0;
+        res[i] = 0;
     }
+    return res;
 }
 
 itemType codeType(int code){ // retourne le type correspondant au code
@@ -49,7 +44,7 @@ itemType codeType(int code){ // retourne le type correspondant au code
     }
 }
 
-item* initItems(int code){
+item* initItems(int code){ //retourne un pointeur vers une nouvelle varible item
     switch (codeType(code))
     {
     case ARMURE:
@@ -67,6 +62,8 @@ item* initItems(int code){
     case SOIN:
         return initPotion(code);
         break;
+    default: 
+        return;
     }
 }
 
