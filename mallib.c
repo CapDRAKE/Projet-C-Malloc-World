@@ -66,6 +66,7 @@ struct hashmap_SI{
 //créé une listInt.
 listInt* create_lint (){
     listInt* res = malloc(sizeof(listInt));
+    res->value = -999999;
     return res;
 }
 //créé une listString
@@ -106,7 +107,7 @@ listInt* gestLast_listInt (listInt* curs){
 }
 void put_listInt(listInt* liste, int value){
 
-    if( liste->value == NULL ){
+    if( liste->value == -999999 ){
         liste->value = value;
     }
     else{
