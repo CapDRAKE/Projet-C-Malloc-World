@@ -11,7 +11,7 @@ item* initResources (int code);
 item* initTools (int code);
 item* initPotion (int code);
 
-
+//ok
 
 //dictionnaire avec en clef un item (la structure) et en valeur un int
 struct coffre{
