@@ -11,6 +11,8 @@ item* initResources (int code);
 item* initTools (int code);
 item* initPotion (int code);
 int putInInventory(item** inventory, int code);
+int decrementDurInTab (item** inventory, int pos, int nb);
+int decrementDurability(item* litem);
 
 //ok
 
@@ -44,6 +46,37 @@ int putInInventory(item** inventory, int code){
     }
     return 0;
 }
+int decrementDurInTab (item** inventory, int pos, int nb){
+    int renvoi =0;
+    for (int i = 0; i<nb; i++){
+        if(decrementDurability(inventory[pos])==0){
+            free(inventory[pos]);
+            return renvoi;
+        }
+        renvoi+=1;
+    }
+    return renvoi;
+}
+int decrementDurability(item* litem){
+    litem->durabilite -=1;
+    if (litem->durabilite<=0)
+    {
+        return 0;
+    }else{
+        return 1;
+    }
+    
+}
+
+int findPosInInventory(item** tab, int code){
+    for (int i = 0; i<10; i++){
+        if (tab[i]->code == code){
+            return i;
+        }
+    }
+    return -1;
+}
+
 
 itemType codeType(int code){ // retourne le type correspondant au code
     switch (code)
