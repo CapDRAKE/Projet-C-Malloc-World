@@ -7,7 +7,6 @@ struct joueur {
     float experience;
     int hp;
     int hpMAX;
-    int inventaire[10][2];
     int** position;
 };
 
