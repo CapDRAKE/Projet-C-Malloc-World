@@ -13,9 +13,21 @@ struct joueur {
 //Déclaration de notre structure joueur
 typedef struct joueur joueur;
 
-void attack(){
-    
+//Attaque du joueur
+int attack(){
+   return 0; 
 }
+
+//Augmentation du level
+void leveling(){
+
+}
+
+//Fuire 
+int run(){
+    return 0;
+}
+
 
 void droite(int **mat) {
 
