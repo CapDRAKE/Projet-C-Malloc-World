@@ -13,6 +13,7 @@ item* initPotion (int code);
 int putInInventory(item** inventory, int code);
 int decrementDurInTab (item** inventory, int pos, int nb);
 int decrementDurability(item* litem);
+int hasEnoughResource(item** inventory,int code, int nb);
 
 //ok
 
@@ -46,6 +47,7 @@ int putInInventory(item** inventory, int code){
     }
     return 0;
 }
+//décrémente la durabilité d'un item à une position donnée. renvoi le nombre de diminition réalisé.
 int decrementDurInTab (item** inventory, int pos, int nb){
     int renvoi =0;
     for (int i = 0; i<nb; i++){
@@ -66,6 +68,19 @@ int decrementDurability(item* litem){
         return 1;
     }
     
+}
+int hasEnoughResource(item** inventory,int code, int nb){
+    int total=0;
+    for (int i=0; i<10; i++ ){
+        if(inventory[i]->code == code){
+            total += inventory[i]->durabilite;
+        }
+    }
+    if (total >= nb){
+        return 1;
+    }else{
+        return 0;
+    }
 }
 
 int findPosInInventory(item** tab, int code){
