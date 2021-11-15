@@ -1,6 +1,38 @@
 #include <stdio.h>
 #include <stdlib.h>     /* srand, rand */
 
+//Structure du joueur
+struct joueur {
+    int niveau;
+    float experience;
+    int hp;
+    int hpMAX;
+    int** position;
+};
+
+//Déclaration de notre structure joueur
+typedef struct joueur joueur;
+
+//Attaque du joueur
+int attack(){
+   return 0; 
+}
+
+//Augmentation du level
+void leveling(){
+
+}
+
+//Fuire 
+int run(){
+    return 0;
+}
+
+
+void droite(int **mat) {
+  
+}
+
 int generateMonster(int minVal, int maxVal ) {
     
     int codeMonster;
@@ -19,6 +51,7 @@ int generateMonster(int minVal, int maxVal ) {
     
     return codeMonster;
 }
+
 
 int popMonster(int max, int row, int** mat) {
     
