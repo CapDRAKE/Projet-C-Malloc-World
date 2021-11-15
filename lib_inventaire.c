@@ -53,7 +53,36 @@ itemType codeType(int code){ // retourne le type correspondant au code
     case 33:
         return ARMURE;
         break;
-    
+	case 5:
+	case 6:
+	case 7:
+	case 16:
+	case 17:
+	case 18:
+	case 27:
+	case 28:
+	case 29:
+		return RESSOURCE;
+		break;
+
+	case 2:
+	case 3:
+	case 4: 
+	case 12:
+	case 13:
+	case 14:
+	case 23:
+	case 24:
+	case 25:
+		return OUTIL;
+		break;
+
+	case 15:
+	case 26:
+	case 34:
+		return SOIN;
+		break;
+
     default:
         return ARME;
         break;
