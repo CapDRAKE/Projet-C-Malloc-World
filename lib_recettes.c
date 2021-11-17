@@ -2,6 +2,18 @@
 
 typedef struct recette recette;
 
+recette* initRecette(int code);
+recette* initRecetteEpee(int code);
+recette* initRecetteLance (int code);
+recette* initRecetteMarteau(int code);
+recette* initRecettePlastron(int code);
+recette* initRecetteTools (int code);
+recette* initRecettePotion (int code);
+
+//crafting est la seule fonction ayant une utilisation extérieure au script.
+int crafting (item** inventory, int code);
+
+
 
 struct recette{
 
@@ -11,7 +23,6 @@ struct recette{
     int quantite[2];
 
 };
-
 
 recette* initRecette(int code){
     switch (code)

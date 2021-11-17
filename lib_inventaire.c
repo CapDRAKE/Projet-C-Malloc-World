@@ -3,6 +3,7 @@
 typedef struct coffre coffre;
 
 item** initinventory();
+
 itemType codeType(int code);
 item* initItems(int code);
 item* initArmor(int code);
@@ -15,7 +16,7 @@ int decrementDurInTab (item** inventory, int pos, int nb);
 int decrementDurability(item* litem);
 int hasEnoughResource(item** inventory,int code, int nb);
 
-//ok
+
 
 //dictionnaire avec en clef un item (la structure) et en valeur un int
 struct coffre{
@@ -67,8 +68,9 @@ int decrementDurability(item* litem){
     }else{
         return 1;
     }
-    
 }
+
+//Vérifie si l'inventaire contient une quantite superieur a "nb" d'un item.
 int hasEnoughResource(item** inventory,int code, int nb){
     int total=0;
     for (int i=0; i<10; i++ ){
