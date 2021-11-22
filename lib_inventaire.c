@@ -17,14 +17,6 @@ int decrementDurability(item* litem);
 int hasEnoughResource(item** inventory,int code, int nb);
 
 
-
-//dictionnaire avec en clef un item (la structure) et en valeur un int
-struct coffre{
-    listItem* key;
-    listInt* value;
-    listInt** hashtable;
-};
-
 // l'inventaire est juste un tableau de pointeurs d'items
 item** initinventory(){ 
     item** res = malloc(sizeof(item*)*10);
@@ -271,3 +263,39 @@ item* initPotion (int code){
         break;
     }
 }
+
+
+
+struct coffre{
+    listItem* objets;
+    int total;
+};
+
+coffre* create_coffre(){
+    coffre* res = malloc(sizeof(coffre));
+    res->objets = create_litem;
+    res->total = 0;
+    return res;
+}
+
+
+// //dictionnaire avec en clef un item (la structure) et en valeur un int
+// struct coffre{
+//     listItem* key;
+//     listInt* value;
+//     listInt** hashtable;
+// };
+
+// coffre* createCoffre (){
+//     coffre* res = malloc(sizeof(coffre));
+//     res->key = create_litem();
+//     res->value = create_lint();
+//     res->hashtable = malloc(sizeof(listInt*)*500);
+// }
+
+// int hashCode (listItem* key){
+//     return key->value->code;
+// }
+// void putCoffre (coffre* cofr, item* key, int value){
+    
+// }
