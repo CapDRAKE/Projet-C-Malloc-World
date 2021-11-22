@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>     /* srand, rand */
 
-<<<<<<< Updated upstream
-=======
 //Structure du joueur
 struct joueur {
     int niveau;
@@ -37,7 +35,6 @@ void droite(int **mat) {
   
 }
 
->>>>>>> Stashed changes
 int generateMonster(int minVal, int maxVal ) {
     
     int codeMonster;
@@ -56,6 +53,7 @@ int generateMonster(int minVal, int maxVal ) {
     
     return codeMonster;
 }
+
 
 int popMonster(int max, int row, int** mat) {
     
@@ -279,7 +277,7 @@ int mainMenu() {
 }
 
 
-void movement(joueur *J1, int** mat) {
+void movement(joueur *J1, int** mat, int row) {
     char movChoise;
     printf("In which direction would you move?");
     printf("\n");
@@ -291,44 +289,44 @@ void movement(joueur *J1, int** mat) {
     }
     
     if(movChoise == 78) {
-        if(mat[(J1->posY)-1][J1->posX] == -1) {
+        if((J1->posY) == 0) {
             printf("You can't go up there ! Choise another way ! \n");
-            movement(J1,mat);
+            movement(J1,mat,row);
         }
-        else if(mat[(J1->posY)-1][J1->posX] != -1)  {
+        else {
             J1->posY = J1->posY - 1;
             mat[J1->posY][J1->posX] = J1->name;
             mat[(J1->posY)+1][J1->posX] = 0;
         }
     }
     else if(movChoise == 83) {
-        if(mat[(J1->posY)+1][J1->posX] == -1) {
+        if((J1->posY) == row-1) {
             printf("You can't go up there ! Choise another way ! \n");
-            movement(J1,mat);
+            movement(J1,mat,row);
         }
-        else if(mat[(J1->posY)+1][J1->posX] != -1)  {
+        else {
             J1->posY += 1;
             mat[J1->posY][J1->posX] = J1->name;
             mat[(J1->posY)-1][J1->posX] = 0;
         }
     }
     else if(movChoise == 69) {
-        if(mat[J1->posY][(J1->posX)+1] == -1) {
+        if((J1->posX) == row-1) {
             printf("You can't go up there ! Choise another way ! \n");
-            movement(J1,mat);
+            movement(J1,mat,row);
         }
-        else if(mat[J1->posY][(J1->posX)+1] != -1)  {
+        else  {
             J1->posX += 1;
             mat[J1->posY][J1->posX] = J1->name;
             mat[J1->posY][(J1->posX)-1] = 0;
         }
     }
     else if(movChoise == 87) {
-        if(mat[J1->posY][(J1->posX)-1] == -1) {
+        if((J1->posX) == 0) {
             printf("You can't go up there ! Choise another way ! \n");
-            movement(J1,mat);
+            movement(J1,mat,row);
         }
-        else if(mat[J1->posY][(J1->posX)-1] != -1)  {
+        else {
             J1->posX = J1->posX - 1;
             mat[J1->posY][J1->posX] = J1->name;
             mat[J1->posY][(J1->posX)+1] = 0;
@@ -338,30 +336,64 @@ void movement(joueur *J1, int** mat) {
 
 void playGame(joueur *J1, int** mat, int row) {
     int crashtest = 0;
+    int choiseMode;
     
-    afficheMap(mat, row);
-    
-    while(crashtest<10) {
+    while(crashtest < 10) {
         printf("\n");
-        // Affichage de la carte 
-        // afficheMap(mat, row);
-    
-        printf("\n");
-    
-        movement(J1,mat);
-    
-        printf("\n");
-    
-        printf("Experience : %f \n HP : %d \n HP MAX : %d \n Niveau : %d \n POS X : %d \n POS Y : %d \n Name : %d \n",J1->experience, J1->hp, J1->hpMAX, J1->niveau, J1->posX, J1->posY, J1->name);
-    
-        printf("\n");
-    
         afficheMap(mat, row);
-    
         printf("\n");
         
-        crashtest+=1;
+        printf("--------------------------------");
+        printf("\n");
+        printf("|  What action would you do ?  |");
+        printf("\n");
+        printf("|      Print your stats - 1    |");
+        printf("\n");
+        printf("|           Move - 2           |");
+        printf("\n");
+        printf("--------------------------------");
+        printf("\n");
+        
+        scanf("%d", &choiseMode);
+        printf("\n");
+        
+        if(choiseMode == 1){
+            printf("Experience : %f \n HP : %d \n HP MAX : %d \n Niveau : %d \n POS X : %d \n POS Y : %d \n Name : %d \n",J1->experience, J1->hp, J1->hpMAX, J1->niveau, J1->posX, J1->posY, J1->name);
+            printf("\n");
+        }
+        
+        else if(choiseMode == 2) {
+            movement(J1,mat,row);
+            printf("\n");
+        }
+    
+         crashtest+=1;
     }
+        
+ 
+    
+    
+    // while(choiseMode ) {
+    //     printf("\n");
+    //     // Affichage de la carte 
+    //     // afficheMap(mat, row);
+    
+    //     printf("\n");
+    
+    //     movement(J1,mat);
+    
+    //     printf("\n");
+    
+    //     printf("Experience : %f \n HP : %d \n HP MAX : %d \n Niveau : %d \n POS X : %d \n POS Y : %d \n Name : %d \n",J1->experience, J1->hp, J1->hpMAX, J1->niveau, J1->posX, J1->posY, J1->name);
+    
+    //     printf("\n");
+    
+    //     afficheMap(mat, row);
+    
+    //     printf("\n");
+        
+    //     crashtest+=1;
+    // }
     
 }
 
@@ -385,8 +417,8 @@ int main() {
     J1->hp = 10;
     J1->hpMAX = 10;
     J1->niveau = 0;
-    J1->posX = 1;
-    J1->posY = 1;
+    J1->posX = 0;
+    J1->posY = 0;
     J1->name = 16;
 
     
@@ -395,7 +427,8 @@ int main() {
     
     printf("Choose a size for your game grid :");
     printf("\n");
-    scanf("%d", &row);
+    //scanf("%d", &row);
+    row = 7;
     mat = (int **)malloc(row*sizeof(int *));
     
     col = row;
@@ -406,29 +439,34 @@ int main() {
 
     for(i=0;i<row;i++) {
         for(j=0;j<col;j++) {
-            if (i == 0)
-            {
-                mat[i][j] = -1;
-            }
-            else if (i == row-1){
-                mat[i][j] = -1;
-            }
-            else if (j == 0){
-                mat[i][j] = -1;
-            }
-            else if (j == col-1){
-                mat[i][j] = -1;
-            }
-            else if (j == 1 && i == 1){
+            if (j == 0 && i == 0){
                 mat[i][j] = J1->name;
             }
-            //else if (mat[randomCase][randomCase2] == 0) {
-            //mat[randomCase][randomCase2] = 15;
-            //}
-            else {
-                //n = rand()%10 + 4;
+            else 
                 mat[i][j] = 0;
-            }
+            // if (i == 0)
+            // {
+            //     mat[i][j] = -1;
+            // }
+            // else if (i == row-1){
+            //     mat[i][j] = -1;
+            // }
+            // else if (j == 0){
+            //     mat[i][j] = -1;
+            // }
+            // else if (j == col-1){
+            //     mat[i][j] = -1;
+            // }
+            // else if (j == 1 && i == 1){
+            //     mat[i][j] = J1->name;
+            // }
+            // //else if (mat[randomCase][randomCase2] == 0) {
+            // //mat[randomCase][randomCase2] = 15;
+            // //}
+            // else {
+            //     //n = rand()%10 + 4;
+            //     mat[i][j] = 0;
+            
         }
     }
     
