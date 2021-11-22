@@ -7,20 +7,54 @@ struct joueur {
     float experience;
     int hp;
     int hpMAX;
-    int** position;
+    int posY;
+    int posX;
+    int name;
 };
-
 //Déclaration de notre structure joueur
 typedef struct joueur joueur;
 
 //Attaque du joueur
-int attack(){
+int attack(int mob, int poxY, int posX){
    return 0; 
 }
 
-//Augmentation du level
-void leveling(){
-
+//Augmentation de l'xp ainsi que du level
+void leveling(int xp, joueur *J1){
+    J1->experience = J1->experience + xp;
+    if(experience == 50 && J1->niveau == 1){
+        J1->niveau = 2;
+        J1->hpMAX += 10;
+        J1->hp = J1->hpMAX;
+    }
+    else if(experience == 60 && J1->niveau == 2){
+        J1->niveau = 3;
+        J1->hpMAX += 20;
+        J1->hp = J1->hpMAX;
+    }
+    else if(experience == 70 && J1->niveau == 3){
+        J1->niveau = 4;
+        J1->hpMAX += 30;
+        J1->hp = J1->hpMAX;
+    }
+    else if(experience == 80 && J1->niveau == 4){
+        J1->niveau = 5;
+        J1->hpMAX += 40;
+        J1->hp = J1->hpMAX;
+    }
+    else if((experience == 90 && J1->niveau == 5) || (experience == 95 && J1->niveau == 6) || (experience == 100 && J1->niveau == 7)){
+        J1->niveau += 1;
+        J1->hpMAX += 50;
+        J1->hp = J1->hpMAX;
+    }
+    else if((experience == 110 && J1->niveau == 8) || (experience == 115 && J1->niveau == 9)){
+        J1->niveau += 1;
+        J1->hpMAX += 75;
+        J1->hp = J1->hpMAX;
+    }
+    else {
+        //rien
+    }
 }
 
 //Fuire 
@@ -225,7 +259,7 @@ int menuInformations() {
     printf("Auteur :");
     printf("\n");
     printf("\n");
-    printf("- Bastien Lewers : https://github.com/CapDRAKE");
+    printf("- Bastien Leuwers : https://github.com/CapDRAKE");
     printf("\n");
     printf("- Nicolas Cortial : https://github.com/IreshDeragon");
     printf("\n");
