@@ -260,16 +260,17 @@ recette* initRecettePotion (int code){
 
 
 int crafting (item** inventory, int code){
-
+    int res =0;
     recette* recet = initRecette(code);
 
     if (hasEnoughResource(inventory, recet->items[0], recet->quantite[0])
             &&hasEnoughResource(inventory, recet->items[1], recet->quantite[1])){
         decrementDurInTab(inventory, findPosInInventory(inventory, recet->items[0]), recet->quantite[0]);
         decrementDurInTab(inventory, findPosInInventory(inventory, recet->items[1]), recet->quantite[1]);
-        return 1;
+        res = putInInventory(inventory, code);
     }
-    return 0;
+    free(recet);
+    return res;
 }
 
 
