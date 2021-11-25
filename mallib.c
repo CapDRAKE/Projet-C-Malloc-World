@@ -93,7 +93,7 @@ void put_listInt(listInt* liste, int value){
 }
 void put_listItem (listItem* liste, item* value){
     liste = getLast_listItem(liste);
-    listItem next = malloc(sizeof(listItem));
-    next.value = value;
-    liste->next = &next;
+    listItem* next = malloc(sizeof(listItem));
+    next->value = value;
+    liste->next = next;
 }
