@@ -2,8 +2,24 @@
 
 typedef struct chest chest;
 
-item** initInventory();
+struct chest{
+    listItem* objets;
+    int total;
+};
 
+//fonctions de gestion de l'inventaire
+item** initInventory();
+int putInInventory(item** inventory, int code);
+int decrementDurInTab (item** inventory, int pos, int nb);
+int hasEnoughResource(item** inventory,int code, int nb);
+void repare(item** inventory);
+
+//fonctions de gestion du coffre du pnj
+chest* create_chest();
+item* getItemInChest(chest* ches, int num);
+void putItemInChest(chest* ches, item* it);
+
+//fonctions de gestion des items
 itemType codeType(int code);
 item* initItems(int code);
 item* initArmor(int code);
@@ -11,15 +27,7 @@ item* initWeapon (int code);
 item* initResources (int code);
 item* initTools (int code);
 item* initPotion (int code);
-int putInInventory(item** inventory, int code);
-int decrementDurInTab (item** inventory, int pos, int nb);
 int decrementDurability(item* litem);
-int hasEnoughResource(item** inventory,int code, int nb);
-chest* create_chest();
-item* getItemInChest(chest* ches, int num);
-void putItemInChest(chest* ches, item* it);
-void repare(item** inventory);
-
 
 
 // l'inventaire est juste un tableau de pointeurs d'items
@@ -306,12 +314,6 @@ item* initPotion (int code){
 }
 
 
-
-struct chest{
-    listItem* objets;
-    int total;
-};
-
 chest* create_chest(){
     chest* res = malloc(sizeof(chest));
     res->objets = create_litem;
@@ -333,5 +335,6 @@ item* getItemInChest(chest* ches, int num){
 void putItemInChest(chest* ches, item* it){
     listItem* litem = malloc(sizeof(listItem));
     put_listItem(ches->objets, it);
+    ches->total +=1;
 }
 
