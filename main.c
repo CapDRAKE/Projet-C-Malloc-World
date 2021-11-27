@@ -22,7 +22,7 @@ int attack(int mob, int poxY, int posX){
 //Augmentation de l'xp ainsi que du level
 void leveling(int xp, joueur *J1){
     J1->experience = J1->experience + xp;
-    if(experience == 50 && J1->niveau == 1){//passage niv 2
+    if(experience == 50 && J1->niveau == 1){//passage niv 2 +10hp
         J1->niveau = 2;
         J1->hpMAX += 10;
         J1->hp = J1->hpMAX;
