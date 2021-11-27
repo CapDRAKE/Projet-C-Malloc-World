@@ -52,9 +52,6 @@ void leveling(int xp, joueur *J1){
         J1->hpMAX += 75;
         J1->hp = J1->hpMAX;
     }
-    else {
-        //rien
-    }
 }
 
 //Fuire 
