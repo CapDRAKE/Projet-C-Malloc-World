@@ -1,8 +1,25 @@
 #include <mallib.c>
 
-typedef struct coffre coffre;
+typedef struct chest chest;
 
-item** initinventory();
+struct chest{
+    listItem* objets;
+    int total;
+};
+
+//fonctions de gestion de l'inventaire
+item** initInventory();
+int putInInventory(item** inventory, int code);
+int decrementDurInTab (item** inventory, int pos, int nb);
+int hasEnoughResource(item** inventory,int code, int nb);
+void repare(item** inventory);
+
+//fonctions de gestion du coffre du pnj
+chest* create_chest();
+item* getItemInChest(chest* ches, int num);
+void putItemInChest(chest* ches, item* it);
+
+//fonctions de gestion des items
 itemType codeType(int code);
 item* initItems(int code);
 item* initArmor(int code);
@@ -10,22 +27,11 @@ item* initWeapon (int code);
 item* initResources (int code);
 item* initTools (int code);
 item* initPotion (int code);
-int putInInventory(item** inventory, int code);
-int decrementDurInTab (item** inventory, int pos, int nb);
 int decrementDurability(item* litem);
-int hasEnoughResource(item** inventory,int code, int nb);
 
-//ok
-
-//dictionnaire avec en clef un item (la structure) et en valeur un int
-struct coffre{
-    listItem* key;
-    listInt* value;
-    listInt** hashtable;
-};
 
 // l'inventaire est juste un tableau de pointeurs d'items
-item** initinventory(){ 
+item** initInventory(){ 
     item** res = malloc(sizeof(item*)*10);
     for (int i = 0; i<10; i++){
         res[i] = 0;
@@ -47,6 +53,15 @@ int putInInventory(item** inventory, int code){
     }
     return 0;
 }
+
+void repare(item** inventory){
+    for(int i =0; i<10; i++){
+        if(inventory[i]->type == OUTIL || inventory[i]->type == ARME){
+            inventory[i]->durabilite = 20;
+        }
+    }
+}
+
 //décrémente la durabilité d'un item à une position donnée. renvoi le nombre de diminition réalisé.
 int decrementDurInTab (item** inventory, int pos, int nb){
     int renvoi =0;
@@ -67,8 +82,9 @@ int decrementDurability(item* litem){
     }else{
         return 1;
     }
-    
 }
+
+//Vérifie si l'inventaire contient une quantite superieur a "nb" d'un item.
 int hasEnoughResource(item** inventory,int code, int nb){
     int total=0;
     for (int i=0; i<10; i++ ){
@@ -93,9 +109,36 @@ int findPosInInventory(item** tab, int code){
 }
 
 
-itemType codeType(int code){ // retourne le type correspondant au code
+itemType codeType(int code){ // retourne le type correspondant au code de l'item
     switch (code)
     {
+    case 2:
+    case 3:
+    case 4:
+    case 12:
+    case 13:
+    case 14:
+    case 23:
+    case 24:
+    case 25:
+        return OUTIL;
+        break;
+    case 5:
+    case 6:
+    case 7:
+    case 16:
+    case 17:
+    case 18:
+    case 27:
+    case 28:
+    case 29:
+        return RESSOURCE;
+        break;
+    case 15:
+    case 26:
+    case 34:
+        return SOIN;
+        break;
     case 11:
     case 22:
     case 33:
@@ -298,3 +341,29 @@ item* initPotion (int code){
         break;
     }
 }
+
+
+chest* create_chest(){
+    chest* res = malloc(sizeof(chest));
+    res->objets = create_litem;
+    res->total = 0;
+    return res;
+}
+item* getItemInChest(chest* ches, int num){
+    listItem* litem = ches->objets;
+    if (num <= ches->total){
+        for (int i = 0; i<num; i++){
+            litem = litem->next;
+        }
+        return litem->value;
+    }
+    else {
+        return 0;
+    }
+}
+void putItemInChest(chest* ches, item* it){
+    listItem* litem = malloc(sizeof(listItem));
+    put_listItem(ches->objets, it);
+    ches->total +=1;
+}
+
