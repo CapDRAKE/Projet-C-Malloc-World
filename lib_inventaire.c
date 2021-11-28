@@ -1,8 +1,9 @@
-#include <mallib.c>
+#include "mallib.h"
+#include "lib_inventaire.h"
 
 typedef struct chest chest;
 
-struct chest{
+struct chest {
     listItem* objets;
     int total;
 };
@@ -10,9 +11,10 @@ struct chest{
 //fonctions de gestion de l'inventaire
 item** initInventory();
 int putInInventory(item** inventory, int code);
-int decrementDurInTab (item** inventory, int pos, int nb);
-int hasEnoughResource(item** inventory,int code, int nb);
+int decrementDurInTab(item** inventory, int pos, int nb);
+int hasEnoughResource(item** inventory, int code, int nb);
 void repare(item** inventory);
+int findPosInInventory(item** tab, int code);
 
 //fonctions de gestion du coffre du pnj
 chest* create_chest();
@@ -23,30 +25,31 @@ void putItemInChest(chest* ches, item* it);
 itemType codeType(int code);
 item* initItems(int code);
 item* initArmor(int code);
-item* initWeapon (int code);
-item* initResources (int code);
-item* initTools (int code);
-item* initPotion (int code);
+item* initWeapon(int code);
+item* initResources(int code);
+item* initTools(int code);
+item* initPotion(int code);
 int decrementDurability(item* litem);
 
 
 // l'inventaire est juste un tableau de pointeurs d'items
-item** initInventory(){ 
-    item** res = malloc(sizeof(item*)*10);
-    for (int i = 0; i<10; i++){
+item** initInventory() {
+    item** res = malloc(sizeof(item*) * 10);
+    for (int i = 0; i < 10; i++) {
         res[i] = 0;
     }
     return res;
 }
 // Ajoute un item à l'inventaire, retourne 1 si réussi, sinon retourne 0
-int putInInventory(item** inventory, int code){
-    for (int i = 0; i <10 ;i++){
-        if(inventory[i]==0){
-            inventory[i]= initItems(code);
+int putInInventory(item** inventory, int code) {
+    for (int i = 0; i < 10; i++) {
+        if (inventory[i] == 0) {
+            inventory[i] = initItems(code);
             return 1;
-        }else{
-            if(codeType(code)== RESSOURCE && code == inventory[i]->code && inventory[i]->durabilite <20){
-                inventory[i]->durabilite +=1;
+        }
+        else {
+            if (codeType(code) == RESSOURCE && code == inventory[i]->code && inventory[i]->durabilite < 20) {
+                inventory[i]->durabilite += 1;
                 return 1;
             }
         }
@@ -54,54 +57,58 @@ int putInInventory(item** inventory, int code){
     return 0;
 }
 
-void repare(item** inventory){
-    for(int i =0; i<10; i++){
-        if(inventory[i]->type == OUTIL || inventory[i]->type == ARME){
+void repare(item** inventory) {
+    for (int i = 0; i < 10; i++) {
+        if (inventory[i]->type == OUTIL || inventory[i]->type == ARME) {
             inventory[i]->durabilite = 20;
         }
     }
 }
 
 //décrémente la durabilité d'un item à une position donnée. renvoi le nombre de diminition réalisé.
-int decrementDurInTab (item** inventory, int pos, int nb){
-    int renvoi =0;
-    for (int i = 0; i<nb; i++){
-        if(decrementDurability(inventory[pos])==0){
+int decrementDurInTab(item** inventory, int pos, int nb) {
+    int renvoi = 0;
+    for (int i = 0; i < nb; i++) {
+        if (decrementDurability(inventory[pos]) == 0) {
             free(inventory[pos]);
             return renvoi;
         }
-        renvoi+=1;
+        renvoi += 1;
     }
     return renvoi;
 }
-int decrementDurability(item* litem){
-    litem->durabilite -=1;
-    if (litem->durabilite<=0)
+int decrementDurability(item* litem) {
+    litem->durabilite -= 1;
+    if (litem->durabilite <= 0)
     {
         return 0;
-    }else{
+    }
+    else {
         return 1;
     }
 }
 
 //Vérifie si l'inventaire contient une quantite superieur a "nb" d'un item.
-int hasEnoughResource(item** inventory,int code, int nb){
-    int total=0;
-    for (int i=0; i<10; i++ ){
-        if(inventory[i]->code == code){
-            total += inventory[i]->durabilite;
+int hasEnoughResource(item** inventory, int code, int nb) {
+    int total = 0;
+    for (int i = 0; i < 10; i++) {
+        if (inventory[i] != 0) {
+            if (inventory[i]->code == code) {
+                total += inventory[i]->durabilite;
+            }
         }
     }
-    if (total >= nb){
+    if (total >= nb) {
         return 1;
-    }else{
+    }
+    else {
         return 0;
     }
 }
 
-int findPosInInventory(item** tab, int code){
-    for (int i = 0; i<10; i++){
-        if (tab[i]->code == code){
+int findPosInInventory(item** tab, int code) {
+    for (int i = 0; i < 10; i++) {
+        if (tab[i]->code == code) {
             return i;
         }
     }
@@ -109,7 +116,7 @@ int findPosInInventory(item** tab, int code){
 }
 
 
-itemType codeType(int code){ // retourne le type correspondant au code de l'item
+itemType codeType(int code) { // retourne le type correspondant au code de l'item
     switch (code)
     {
     case 2:
@@ -144,43 +151,13 @@ itemType codeType(int code){ // retourne le type correspondant au code de l'item
     case 33:
         return ARMURE;
         break;
-	case 5:
-	case 6:
-	case 7:
-	case 16:
-	case 17:
-	case 18:
-	case 27:
-	case 28:
-	case 29:
-		return RESSOURCE;
-		break;
-
-	case 2:
-	case 3:
-	case 4: 
-	case 12:
-	case 13:
-	case 14:
-	case 23:
-	case 24:
-	case 25:
-		return OUTIL;
-		break;
-
-	case 15:
-	case 26:
-	case 34:
-		return SOIN;
-		break;
-
     default:
         return ARME;
         break;
     }
 }
 
-item* initItems(int code){ //retourne un pointeur vers une nouvelle varible item
+item* initItems(int code) { //retourne un pointeur vers une nouvelle varible item
     switch (codeType(code))
     {
     case ARMURE:
@@ -198,12 +175,12 @@ item* initItems(int code){ //retourne un pointeur vers une nouvelle varible item
     case SOIN:
         return initPotion(code);
         break;
-    default: 
-        return;
+    default:
+        return 0;
     }
 }
 
-item* initArmor(int code){
+item* initArmor(int code) {
     item* res = malloc(sizeof(item));
     res->code = code;
     res->type = ARMURE;
@@ -221,7 +198,7 @@ item* initArmor(int code){
         break;
     }
 }
-item* initWeapon (int code){
+item* initWeapon(int code) {
     item* res = malloc(sizeof(item));
     res->code = code;
     res->type = ARME;
@@ -270,7 +247,7 @@ item* initWeapon (int code){
     }
 }
 
-item* initResources (int code){
+item* initResources(int code) {
     item* res = malloc(sizeof(item));
     res->code = code;
     res->type = RESSOURCE;
@@ -296,7 +273,7 @@ item* initResources (int code){
     }
 }
 
-item* initTools (int code){
+item* initTools(int code) {
     item* res = malloc(sizeof(item));
     res->code = code;
     res->type = OUTIL;
@@ -322,7 +299,7 @@ item* initTools (int code){
     }
 }
 
-item* initPotion (int code){
+item* initPotion(int code) {
     item* res = malloc(sizeof(item));
     res->code = code;
     res->type = SOIN;
@@ -343,16 +320,16 @@ item* initPotion (int code){
 }
 
 
-chest* create_chest(){
+chest* create_chest() {
     chest* res = malloc(sizeof(chest));
-    res->objets = create_litem;
+    res->objets = create_litem();
     res->total = 0;
     return res;
 }
-item* getItemInChest(chest* ches, int num){
+item* getItemInChest(chest* ches, int num) {
     listItem* litem = ches->objets;
-    if (num <= ches->total){
-        for (int i = 0; i<num; i++){
+    if (num <= ches->total) {
+        for (int i = 0; i < num; i++) {
             litem = litem->next;
         }
         return litem->value;
@@ -361,9 +338,9 @@ item* getItemInChest(chest* ches, int num){
         return 0;
     }
 }
-void putItemInChest(chest* ches, item* it){
+void putItemInChest(chest* ches, item* it) {
     listItem* litem = malloc(sizeof(listItem));
     put_listItem(ches->objets, it);
-    ches->total +=1;
+    ches->total += 1;
 }
 
