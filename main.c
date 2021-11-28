@@ -112,14 +112,27 @@ int mainMenu() {
 
 
 void playGame(joueur* J1, int** mat, int row, int rowTriple) {
-
     int crashtest = 0;
     char choiseMode;
 
     while (J1->hp > 0) {
         if (J1->hp > 0) {
+
+            printf("\n");
+            printf("Experience : %d \n HP : %d \n HP MAX : %d \n Attack : %d \n Niveau : %d \n POS X : %d \n POS Y : %d \n Name : %d \n", J1->experience, J1->hp, J1->hpMAX, J1->attack, J1->niveau, J1->posX, J1->posY, J1->name);
+
             printf("\n");
             afficheMap(mat, rowTriple, row);
+            printf("\n");
+
+            printf("    ---------------");
+            printf("\n");
+            printf("    |  Inventory  |");
+            printf("\n");
+            printf("    ---------------");
+            printf("\n");
+
+            printInventory(J1->inventory);
             printf("\n");
 
             printf("--------------------------------");
@@ -129,8 +142,6 @@ void playGame(joueur* J1, int** mat, int row, int rowTriple) {
             printf("--------------------------------");
             printf("\n");
             printf("|      Print your stats - c    |");
-            printf("\n");
-            printf("|   Print your Inventory - i   |");
             printf("\n");
             printf("--------------------------------");
             printf("\n");
@@ -168,18 +179,6 @@ void playGame(joueur* J1, int** mat, int row, int rowTriple) {
 
             else if (choiseMode == 'w')
                 westMov(J1, mat, row);
-
-            else if (choiseMode == 'i') {
-                printf("    ---------------");
-                printf("\n");
-                printf("    |  Inventory  |");
-                printf("\n");
-                printf("    ---------------");
-                printf("\n");
-
-                printInventory(J1->inventory);
-                printf("\n");
-            }
         }
     }
 }
@@ -244,14 +243,15 @@ int main() {
     popMonsterZone2(9, row, mat);
     popMonsterZone3(9, row, mat);
     popNpc(4, row, mat);
-    popRessources(9, row, mat);
+    popRessources(7, row, mat);
 
     playGame(J1, mat, row, rowTriple);
 
 
     free(mat);
     free(J1);
-    
+    free(coffre);
+
     return 0;
 }
 
