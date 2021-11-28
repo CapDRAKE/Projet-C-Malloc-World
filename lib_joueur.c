@@ -380,6 +380,45 @@ void actionCaseUsed(joueur* J1, int** mat, char dir, int row) {
     }
 }
 
+void actionCaseUsedRessources(joueur *J1,int ** mat, char dir, int row) {
+    int actionChoised;
+
+    printf("   -     Action :     - ");
+    printf("\n");
+    printf("   -     Harvest (1)  - ");
+    printf("\n");
+    printf("   -     Leave (2)    - ");
+    printf("\n");
+    
+    scanf("%d", &actionChoised);
+    if(actionChoised > 2 || actionChoised < 1) {
+        printf("Choix invalide, réessayer !");
+        printf("\n");
+        scanf("%d", &actionChoised);
+    }
+    else if(actionChoised == 1 && dir == 's') {
+        int codeStatRessources = mat[(J1->posY)+1][J1->posX];
+        // harvestSouth(J1,mat,codeStatRessources);
+    }
+    else if(actionChoised == 1 && dir == 'n') {
+        int codeStatRessources = mat[(J1->posY)-1][J1->posX];
+        // harvestNorth(J1,mat,codeStatRessources);
+    }
+    else if(actionChoised == 1 && dir == 'e') {
+        int codeStatRessources = mat[J1->posY][(J1->posX)+1];
+        // harvestEast(J1,mat,codeStatRessources);
+    }
+    else if(actionChoised == 1 && dir == 'w') {
+        int codeStatRessources = mat[J1->posY][(J1->posX)-1];
+        // harvestWest(J1,mat,codeStatRessources);
+    }
+    else if(actionChoised == 2) {
+        printf("It’s a shame, a beautiful treasure was there.\n");
+        printf("In which direction would you move?\n");
+        movement(J1,mat,row);
+    }
+}
+
 
 void fall(joueur* J1, int** mat, int row) {
     char fly;

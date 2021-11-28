@@ -37,6 +37,7 @@ void westMov(joueur* J1, int** mat, int row);
 void movement(joueur* J1, int** mat, int row);
 
 void actionCaseUsed(joueur* J1, int** mat, char dir, int row);
+void actionCaseUsedRessources(joueur *J1,int ** mat, char dir, int row);
 
 void fightWest(joueur* J1, int** mat, int codeStatMonster);
 void fightEast(joueur* J1, int** mat, int codeStatMonster);
