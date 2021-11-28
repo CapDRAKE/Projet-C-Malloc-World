@@ -187,18 +187,8 @@ int main() {
     int **mat, row, rowTriple, col, i, j, n, gameChoise;
 
     // * Initialization of a player
-    joueur *J1 = malloc(sizeof(joueur));
-    J1->experience = 0;
-    J1->hp = 10;
-    J1->hpMAX = 10;
-    J1->attack = 3;
-    J1->niveau = 1;
-    J1->posX = 0;
-    J1->posY = 0;
-    J1->name = 1;
+    joueur *J1 = initPlayer();
     
-
-
     
     mainMenu();
     
