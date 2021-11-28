@@ -1,5 +1,6 @@
-//#include <stdlib.h>
-//#include <stdio.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include "mallib.h"
 /**
  *
  * Déclaration des listes et dictionnaires de différents types.
@@ -8,10 +9,8 @@
  * ce qui donne par exemple hashmap_IS pour int et string;
  *
  **/
-/*typedef struct hashmap_IS hashmap_IS;
-typedef struct hashmap_Si hashmap_SI;
-typedef struct hashmap_SS hashmap_SS;*/
-enum itemType{ARME, OUTIL, RESSOURCE, ARMURE, SOIN};
+
+ //enum itemType{ARME, OUTIL, RESSOURCE, ARMURE, SOIN};
 
 
 typedef struct listString listString;
@@ -20,99 +19,91 @@ typedef struct item item;
 typedef enum itemType itemType;
 typedef struct listInt listInt;
 
+listInt* create_lint();
+listString* create_lstring();
+listItem* create_litem();
 
-struct item{
-    int value;
-    int code;
-    int durabilite;
-    itemType type;
-};
-struct listInt{
-    int value;
-    listInt* next;
-};
-struct listString{
-    char* value;
-    listString* next;
-};
-struct listItem{
-    item* value;
-    listItem* next;
-};
+listInt* getLast_listInt(listInt* curs);
+listItem* getLast_listItem(listItem* curs);
+void put_listInt(listInt* liste, int value);
+void put_listItem(listItem* liste, item* value);
 
-/*struct hashmap_IS {
-    listInt key;
-    listString value;
-    listString** hashtable;
-};
-struct hashmap_SS{
-    listString key;
-    listString value;
-    listString** hashtable;
-};
-struct hashmap_SI{
-    listString key;
-    listInt value;
-    listInt** hashtable;
-};*/
+
+// struct item{
+//     int value;
+//     int code;
+//     int durabilite;
+//     itemType type;
+// };
+// struct listInt{
+//     int value;
+//     listInt* next;
+// };
+// struct listString{
+//     char* value;
+//     listString* next;
+// };
+// struct listItem{
+//     item* value;
+//     listItem* next;
+// };
 
 
 /**
  *
- * Fonctions de déclaration des listes et hashmap.
+ * Fonctions de déclaration des listes.
  *
  **/
 
-//créé une listInt.
-listInt* create_lint (){
+ //créé une listInt.
+listInt* create_lint() {
     listInt* res = malloc(sizeof(listInt));
     res->value = -999999;
     return res;
 }
 //créé une listString
-listString* create_lstring (){
+listString* create_lstring() {
     listString* res = malloc(sizeof(listString));
     return res;
 }
-listItem* create_litem(){
+//créé une liste d'items (utile pour le coffre)
+listItem* create_litem() {
     listItem* res = malloc(sizeof(listItem));
     return res;
 }
 
-//créé une hashmap_IS (int et string)
-/*hashmap_IS create_hashmap_IS(int taillemax){
-    hashmap_IS* res = malloc(sizeof(hashmap_IS));
-    res->hashtable = malloc(sizeof(listString*)* taillemax);
-    return res;
-}
-hashmap_SS create_hashmap_SS(int taillemax){
-    hashmap_SS* res = malloc(sizeof(hashmap_SS));
-    res->hashtable = malloc(sizeof (listString*)*taillemax);
-    return res;
-}
-hashmap_SI create_hashmap_SI(int taillemax){
-    hashmap_SI* res = malloc(sizeof(hashmap_SI));
-    res->hashtable = malloc(sizeof (listInt*)*taillemax);
-    return res;
-}*/
 /**
 *
 *fonctions d'ajout de valeurs
 *
 **/
-listInt* gestLast_listInt (listInt* curs){
-    while(curs->next != 0){
+listInt* getLast_listInt(listInt* curs) {
+    while (curs->next != 0) {
         curs = curs->next;
     }
+    return curs;
 }
-void put_listInt(listInt* liste, int value){
+listItem* getLast_listItem(listItem* curs) {
+    while (curs->next != 0) {
+        curs = curs->next;
+    }
+    return curs;
+}
 
-    if( liste->value == -999999 ){
+void put_listInt(listInt* liste, int value) {
+
+    if (liste->value == -999999) {
         liste->value = value;
     }
-    else{
+    else {
         listInt* ajout = malloc(sizeof(listInt));
         ajout->value = value;
         liste->next = ajout;
     }
+}
+void put_listItem(listItem* liste, item* value) {
+    liste = getLast_listItem(liste);
+    listItem* next = malloc(sizeof(listItem));
+    next->value = value;
+    liste->next = next;
 }
