@@ -196,6 +196,7 @@ int popNpc(int max, int row, int** mat) {
     return mat[randomCaseNpc][randomCaseNpc2];
 }
 
+<<<<<<< Updated upstream
 int generateRessources(int minVal, int maxVal ) {
     
     int codeRessources;
@@ -245,6 +246,8 @@ int popRessources(int max, int row, int** mat) {
 }
 
 
+=======
+>>>>>>> Stashed changes
 int afficheMap(int** mat, int rowTriple, int col) {
     
     int i,j;
@@ -915,18 +918,11 @@ void playGame(joueur *J1, int** mat, int row, int rowTriple) {
 
 
 int main() {
-    //printf("Nous générons un monstre : ");
-    //generateMonster(1, 15);  
-    
-    //printf("\n");
-    
-    //printf("Nous générons un NPC : ");
-    //generateNpc(16, 30);
-    
     
     int **mat, row, rowTriple, col, i, j, n, gameChoise;
 
     // * Initialization of a player
+<<<<<<< Updated upstream
     joueur *J1 = malloc(sizeof(joueur));
     J1->experience = 0;
     J1->hp = 10;
@@ -939,6 +935,19 @@ int main() {
     
 
 
+=======
+    joueur *J1 = initPlayer();
+    // joueur* J1 = malloc(sizeof(joueur));
+    // J1->experience = 0;
+    // J1->hp = 10;
+    // J1->hpMAX = 10;
+    // J1->attack = 3;
+    // J1->niveau = 1;
+    // J1->posX = 0;
+    // J1->posY = 0;
+    // J1->name = 1;
+    // J1->inventory = initInventory();
+>>>>>>> Stashed changes
     
     mainMenu();
     
@@ -991,34 +1000,27 @@ int main() {
     
     // printf("HP : %d \n HP MAX : %d \n Attack : %d \n POS X : %d \n POS Y : %d \n Name : %d \n",M1->hp, M1->hpMAX, M1->attack, M1->posX, M1->posY, M1->name);
     // Generation des éléments présent sur la carte
-    popMonster(9, row, mat);
+    popMonster(18, row, mat);
     popMonsterZone2(9, row, mat);
+    popMonsterZone3(9, row, mat);
     popNpc(4, row, mat);
-    popRessources(9, row, mat);
+    popRessources(7, row, mat);
+    printf("\n");
     
     playGame(J1,mat,row, rowTriple);
-    // Affichage de la carte 
-    // afficheMap(mat, rowTriple, col);
     
-    // printf("\n");
-    
-    // movement(J1,mat);
-    
-    // printf("\n");
-    
-    // printf("Experience : %f \n HP : %d \n HP MAX : %d \n Niveau : %d \n POS X : %d \n POS Y : %d \n Name : %d \n",J1->experience, J1->hp, J1->hpMAX, J1->niveau, J1->posX, J1->posY, J1->name);
-    
-    // printf("\n");
-    
-    // afficheMap(mat, row);
-    
-    // printf("\n");
-    
-    
-    return 0;
+    for(i=0;i<rowTriple;i++) {
+        for(j=0;j<col;j++) {
+            printf("%d\t", mat[i][j]);
+        }
+        printf("\n");
+    }
     
     free(mat);
     free(J1);
+    
+    return 0;
+    
 }
 
 
@@ -1032,3 +1034,4 @@ int main() {
 // ! 24/11 - 25/11
 
 // TODO : Comprendre l'inventaire et en crée un pour le joueur.
+
