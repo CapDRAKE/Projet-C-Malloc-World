@@ -31,6 +31,13 @@ item* initTools(int code);
 item* initPotion(int code);
 int decrementDurability(item* litem);
 
+char* nameItem(int code);
+char* nameTool(int code);
+char* nameResource(int code);
+char* namePotion(int code);
+char* nameArmor(int code);
+char* nameWeapon(int code);
+
 
 // l'inventaire est juste un tableau de pointeurs d'items
 item** initInventory() {
@@ -61,6 +68,20 @@ void repare(item** inventory) {
     for (int i = 0; i < 10; i++) {
         if (inventory[i]->type == OUTIL || inventory[i]->type == ARME) {
             inventory[i]->durabilite = 20;
+        }
+    }
+}
+void printInventory(item** inventory) {
+    for (int i = 1; i <= 10; i++) {
+        printf("%d : ", i);
+        if (inventory[i] == 0) {
+            printf("#");
+        }
+        else {
+            printf(nameItem(inventory[i]->code));
+        }
+        if (i != 10) {
+            printf(" /");
         }
     }
 }
@@ -319,6 +340,173 @@ item* initPotion(int code) {
     }
 }
 
+char* nameItem(int code) {
+    switch (code)
+    {
+    case 2:
+    case 3:
+    case 4:
+    case 12:
+    case 13:
+    case 14:
+    case 23:
+    case 24:
+    case 25:
+        return nameTool(code);
+        break;
+    case 5:
+    case 6:
+    case 7:
+    case 16:
+    case 17:
+    case 18:
+    case 27:
+    case 28:
+    case 29:
+        return nameResource(code);
+        break;
+    case 15:
+    case 26:
+    case 34:
+        return namePotion(code);
+        break;
+    case 11:
+    case 22:
+    case 33:
+        return nameArmor(code);
+        break;
+    default:
+        return nameWeapon(code);
+        break;
+    }
+}
+char* nameTool(int code) {
+    switch (code)
+    {
+    case 2:
+        return "Pioche en bois";
+        break;
+    case 3:
+        return "Serpe en bois";
+        break;
+    case 4:
+        return "Hache en bois";
+        break;
+    case 12:
+        return "Pioche en pierre";
+        break;
+    case 13:
+        return "Serpe en pierre";
+        break;
+    case 14:
+        return "Hache en pierre";
+        break;
+    case 23:
+        return "Pioche en fer";
+        break;
+    case 24:
+        return "Serpe en fer";
+        break;
+    case 25:
+        return "Hache en fer";
+        break;
+    }
+}
+char* nameResource(int code) {
+    switch (code)
+    {
+    case 5:
+        return "Sapin";
+        break;
+    case 6:
+        return "Pierre";
+        break;
+    case 7:
+        return "Herbe";
+        break;
+    case 16:
+        return "Hetre";
+        break;
+    case 17:
+        return "Fer";
+        break;
+    case 18:
+        return "Lavande";
+        break;
+    case 27:
+        return "Chene";
+        break;
+    case 28:
+        return "Diamant";
+        break;
+    case 29:
+        return "Chanvre";
+        break;
+    }
+}
+char* namePotion(int code) {
+    switch (code)
+    {
+    case 15:
+        return "potion de vie I";
+        break;
+    case 26:
+        return "potion de vie II";
+        break;
+    case 34:
+        return "Potion de vie III";
+        break;
+    }
+}
+char* nameArmor(int code) {
+    switch (code)
+    {
+    case 11:
+        return "Plastron en pierre";
+        break;
+    case 22:
+        return "Plastron en fer";
+        break;
+    case 33:
+        return "Plastron en diamant";
+        break;
+    }
+}
+char* nameWeapon(int code) {
+    switch (code)
+    {
+    case 1:
+        return "Epee en bois";
+        break;
+    case 8:
+        return "Epee en pierre";
+        break;
+    case 9:
+        return "Lance en pierre";
+        break;
+    case 10:
+        return "Marteau en pierre";
+        break;
+    case 19:
+        return "Epee en fer";
+        break;
+    case 20:
+        return "Lance en fer";
+        break;
+    case 21:
+        return "Marteau en fer";
+        break;
+    case 30:
+        return "Epee en diamant";
+        break;
+    case 31:
+        return "Lance en diamant";
+        break;
+    case 32:
+        return "Marteau en diamant";
+        break;
+    }
+}
 
 chest* create_chest() {
     chest* res = malloc(sizeof(chest));

@@ -2,6 +2,7 @@
 
 
 int popMonster(int max, int row, int** mat) {
+
     int monster = generateMonster(14,15);
     int randomCase = rand() % row;
     int randomCase2 = rand() % row;
@@ -67,12 +68,14 @@ int popMonsterZone3(int max, int row, int** mat) {
         }
     }
     return mat[randomCase+total][randomCase2+total];
+
 }
 
 int generateNpc(int minVal, int maxVal) {
 
     int codeNpc;
     codeNpc = rand() % maxVal + minVal; // Random from 1 to 10
+
     return codeNpc;
 }
 
@@ -100,8 +103,10 @@ int popNpc(int max, int row, int** mat) {
 }
 
 int generateRessources(int minVal, int maxVal) {
+
     int codeRessources;
     codeRessources = rand() % (maxVal - 100) + minVal; // Random from 1 to 10
+
     return codeRessources;
 }
 

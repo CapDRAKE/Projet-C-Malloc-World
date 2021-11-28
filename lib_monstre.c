@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
+
 #include "lib_monstre.h"
+
 
 int generateMonster(int minVal, int maxVal) {
     int codeMonster;
@@ -20,6 +22,7 @@ int generateMonsterZone3(int minVal, int maxVal) {
     codeMonster = rand() % 2 + 18;// Random from 1 to 10
     return codeMonster;
 }
+
 
 void generateMonsterZone1Stat(monster *M1, int codeMonsterStat) {
     switch( codeMonsterStat ){
