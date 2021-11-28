@@ -9,6 +9,27 @@
 
 
 
+int generateRessources(int minVal, int maxVal ) {
+    
+    int codeRessources;
+    
+    // -- SINGLE VERSION --
+    codeRessources = rand() % (maxVal-100) + minVal; // Random from 1 to 10
+    
+    //printf("%d", codeNpc);
+    
+    // -- MULTIPLE VERSION --
+    //for(int i=1; i<10; i++) {
+    //    codeNpc = rand() % maxVal + minVal; // Random from 1 to 10
+    //    printf("\n");
+    //    printf("%d", codeNpc);
+    //}  
+    
+    return codeRessources;
+}
+
+
+
 
 
 int afficheMap(int** mat, int rowTriple, int col) {
@@ -175,20 +196,12 @@ void playGame(joueur *J1, int** mat, int row, int rowTriple) {
 
 
 int main() {
-    //printf("Nous générons un monstre : ");
-    //generateMonster(1, 15);  
-    
-    //printf("\n");
-    
-    //printf("Nous générons un NPC : ");
-    //generateNpc(16, 30);
-    
     
     int **mat, row, rowTriple, col, i, j, n, gameChoise;
 
     // * Initialization of a player
     joueur *J1 = initPlayer();
-    
+
     
     mainMenu();
     
@@ -241,34 +254,27 @@ int main() {
     
     // printf("HP : %d \n HP MAX : %d \n Attack : %d \n POS X : %d \n POS Y : %d \n Name : %d \n",M1->hp, M1->hpMAX, M1->attack, M1->posX, M1->posY, M1->name);
     // Generation des éléments présent sur la carte
-    popMonster(9, row, mat);
+    popMonster(18, row, mat);
     popMonsterZone2(9, row, mat);
+    popMonsterZone3(9, row, mat);
     popNpc(4, row, mat);
-    popRessources(9, row, mat);
+    popRessources(7, row, mat);
+    printf("\n");
     
     playGame(J1,mat,row, rowTriple);
-    // Affichage de la carte 
-    // afficheMap(mat, rowTriple, col);
     
-    // printf("\n");
-    
-    // movement(J1,mat);
-    
-    // printf("\n");
-    
-    // printf("Experience : %f \n HP : %d \n HP MAX : %d \n Niveau : %d \n POS X : %d \n POS Y : %d \n Name : %d \n",J1->experience, J1->hp, J1->hpMAX, J1->niveau, J1->posX, J1->posY, J1->name);
-    
-    // printf("\n");
-    
-    // afficheMap(mat, row);
-    
-    // printf("\n");
-    
-    
-    return 0;
+    for(i=0;i<rowTriple;i++) {
+        for(j=0;j<col;j++) {
+            printf("%d\t", mat[i][j]);
+        }
+        printf("\n");
+    }
     
     free(mat);
     free(J1);
+    
+    return 0;
+    
 }
 
 
@@ -282,3 +288,4 @@ int main() {
 // ! 24/11 - 25/11
 
 // TODO : Comprendre l'inventaire et en crée un pour le joueur.
+

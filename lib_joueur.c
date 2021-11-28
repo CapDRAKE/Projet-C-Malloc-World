@@ -14,6 +14,7 @@ joueur* initPlayer() {
     J1->posY = 0;
     J1->name = 1;
     J1->inventory = initInventory();
+    return J1;
 }
 
 void leveling(int xp, joueur* J1) {
@@ -61,33 +62,38 @@ void teleportationZone(joueur* J1, int** mat) {
 }
 
 
-void fightSouth(joueur* J1, int** mat, int codeStatMonster) {
-    int actionCombat;
-    monster* M1 = malloc(sizeof(monster));
 
-    if (codeStatMonster == 14) {
-        // * Initialization of a Monster
-        M1->hp = 5;
-        M1->hpMAX = 5;
-        M1->attack = 2;
-        M1->posX = 1;
-        M1->posY = 2;
-        M1->name = 12;
+void fightSouth(joueur *J1,int ** mat, int codeStatMonster) {
+    int actionCombat;
+    monster *M1 = malloc(sizeof(monster));
+    
+    if(codeStatMonster == 14) {
+        generateMonsterZone1Stat(M1, 14);
         printf("This is a Gobelins ! \n");
     }
-    else if (codeStatMonster == 15) {
-        // * Initialization of a Monster
-        M1->hp = 7;
-        M1->hpMAX = 7;
-        M1->attack = 3;
-        M1->posX = 1;
-        M1->posY = 2;
-        M1->name = 12;
+    else if(codeStatMonster == 15) {
+        generateMonsterZone1Stat(M1, 15);
         printf("This is an Orc ! \n");
     }
-
+    else if(codeStatMonster == 16) {
+        generateMonsterZone2Stat(M1, 16);
+        printf("This is a Troll ! \n");
+    }
+    else if(codeStatMonster == 17) {
+        generateMonsterZone2Stat(M1, 16); 
+        printf("This is a Wapiti ! \n");
+    }
+    else if(codeStatMonster == 18) {
+        generateMonsterZone3Stat(M1, 18); 
+        printf("This is a Noe le Sbire ! \n");
+    }
+    else if(codeStatMonster == 19) {
+        generateMonsterZone3Stat(M1, 19); 
+        printf("This is a Nathanael Le Devoreur d'enfant ! \n");
+    }
+    
     printf("You have %d HP, The monster have %d \n", J1->hp, M1->hp);
-    while (J1->hp > 0 && M1->hp > 0) {
+    while(J1->hp > 0 && M1->hp > 0){
         printf("   -     Action :     - ");
         printf("\n");
         printf("   -     Attack (1)   - ");
@@ -95,29 +101,28 @@ void fightSouth(joueur* J1, int** mat, int codeStatMonster) {
         printf("   -     Heal (2)     - ");
         printf("\n");
         scanf("%d", &actionCombat);
-        if (actionCombat > 2 || actionCombat < 1) {
-            printf("Choix invalide, réessayer !");
+        if(actionCombat > 2 || actionCombat < 1) {
+            printf("Choix invalide, rÃƒÂ©essayer !");
             printf("\n");
             scanf("%d", &actionCombat);
         }
-        else if (actionCombat == 1) {
-            if (J1->hp > 0 && M1->hp > 0) {
-                M1->hp = (M1->hp) - (J1->attack);
-                J1->hp = (J1->hp) - (M1->attack);
+        else if(actionCombat == 1) {
+            if(J1->hp > 0 && M1->hp > 0){
+                M1->hp = (M1->hp)-(J1->attack);
+                J1->hp = (J1->hp)-(M1->attack);
                 printf("You have %d HP, The monster have %d \n", J1->hp, M1->hp);
-                // J1->experience = J1->experience + 5;
-                leveling(20, J1);
-                if (J1->hp == 0) {
+                if(J1->hp <= 0) {
                     printf("You are dead. \n");
                 }
-                else if (M1->hp <= 0) {
+                else if(M1->hp <= 0) {
                     printf("You defeat the monster ! \n");
-                    mat[(J1->posY) + 1][J1->posX] = 0;
+                    mat[(J1->posY)+1][J1->posX] = 0;
+                    leveling(20,J1);
                 }
             }
         }
-        else if (actionCombat == 2) {
-            printf("Vous avez décidé de vous heal ! \n");
+        else if(actionCombat == 2) {
+            printf("Vous avez dÃƒÂ©cidÃƒÂ© de vous heal ! \n");
             J1->hp = J1->hp + 5;
             printf("Vous regagnez 5 PV ! \n");
         }
@@ -125,35 +130,39 @@ void fightSouth(joueur* J1, int** mat, int codeStatMonster) {
     free(M1);
 }
 
-void fightNorth(joueur* J1, int** mat, int codeStatMonster) {
-    int actionCombat;
-    monster* M1 = malloc(sizeof(monster));
 
-    if (codeStatMonster == 14) {
-        // * Initialization of a Monster
+void fightNorth(joueur *J1,int ** mat, int codeStatMonster) {
+    int actionCombat;
+    monster *M1 = malloc(sizeof(monster));
+    
+    if(codeStatMonster == 14) {
+        generateMonsterZone1Stat(M1, 14);
         printf("This is a Gobelins ! \n");
     }
-    else if (codeStatMonster == 15) {
-        // * Initialization of a Monster
-        M1->hp = 7;
-        M1->hpMAX = 7;
-        M1->attack = 3;
-        M1->posX = 1;
-        M1->posY = 2;
-        M1->name = 12;
+    else if(codeStatMonster == 15) {
+        generateMonsterZone1Stat(M1, 15);
         printf("This is an Orc ! \n");
     }
-    // * Initialization of a Monster
-    // monster *M1 = malloc(sizeof(monster));
-    // M1->hp = 5;
-    // M1->hpMAX = 5;
-    // M1->attack = 2;
-    // M1->posX = 1;
-    // M1->posY = 2;
-    // M1->name = 12;
+    else if(codeStatMonster == 16) {
+        generateMonsterZone2Stat(M1, 16);
+        printf("This is a Troll ! \n");
+    }
+    else if(codeStatMonster == 17) {
+        generateMonsterZone2Stat(M1, 16); 
+        printf("This is a Wapiti ! \n");
+    }
+    else if(codeStatMonster == 18) {
+        generateMonsterZone3Stat(M1, 18); 
+        printf("This is a Noe le Sbire ! \n");
+    }
+    else if(codeStatMonster == 19) {
+        generateMonsterZone3Stat(M1, 19); 
+        printf("This is a Nathanael Le Devoreur d'enfant ! \n");
+    }
 
     printf("You have %d HP, The monster have %d \n", J1->hp, M1->hp);
-    while (J1->hp > 0 && M1->hp > 0) {
+    while(J1->hp > 0 && M1->hp > 0){
+
         printf("   -     Action :     - ");
         printf("\n");
         printf("   -     Attack (1)   - ");
@@ -161,28 +170,29 @@ void fightNorth(joueur* J1, int** mat, int codeStatMonster) {
         printf("   -     Heal (2)     - ");
         printf("\n");
         scanf("%d", &actionCombat);
-        if (actionCombat > 2 || actionCombat < 1) {
-            printf("Choix invalide, réessayer !");
+        if(actionCombat > 2 || actionCombat < 1) {
+            printf("Choix invalide, rÃƒÂ©essayer !");
             printf("\n");
             scanf("%d", &actionCombat);
         }
-        else if (actionCombat == 1) {
-            if (J1->hp > 0 && M1->hp > 0) {
-                M1->hp = (M1->hp) - (J1->attack);
-                J1->hp = (J1->hp) - (M1->attack);
+        else if(actionCombat == 1) {
+            if(J1->hp > 0 && M1->hp > 0){
+                M1->hp = (M1->hp)-(J1->attack);
+                J1->hp = (J1->hp)-(M1->attack);
                 printf("You have %d HP, The monster have %d \n", J1->hp, M1->hp);
-                leveling(20, J1);
-                if (J1->hp == 0) {
+                // leveling(20,J1);
+                if(J1->hp == 0) {
                     printf("You are dead. \n");
                 }
-                else if (M1->hp <= 0) {
+                else if(M1->hp <= 0) {
                     printf("You defeat the monster ! \n");
-                    mat[(J1->posY) - 1][J1->posX] = 0;
+                    mat[(J1->posY)-1][J1->posX] = 0;
+                    leveling(20,J1);
                 }
             }
         }
-        else if (actionCombat == 2) {
-            printf("Vous avez décidé de vous heal ! \n");
+        else if(actionCombat == 2) {
+            printf("Vous avez dÃƒÂ©cidÃƒÂ© de vous heal ! \n");
             J1->hp = J1->hp + 5;
             printf("Vous regagnez 5 PV ! \n");
         }
@@ -190,19 +200,37 @@ void fightNorth(joueur* J1, int** mat, int codeStatMonster) {
     free(M1);
 }
 
-void fightEast(joueur* J1, int** mat) {
+void fightEast(joueur *J1,int ** mat, int codeStatMonster) {
     int actionCombat;
-    // * Initialization of a Monster
-    monster* M1 = malloc(sizeof(monster));
-    M1->hp = 5;
-    M1->hpMAX = 5;
-    M1->attack = 2;
-    M1->posX = 1;
-    M1->posY = 2;
-    M1->name = 12;
+    monster *M1 = malloc(sizeof(monster));
+    
+    if(codeStatMonster == 14) {
+        generateMonsterZone1Stat(M1, 14);
+        printf("This is a Gobelins ! \n");
+    }
+    else if(codeStatMonster == 15) {
+        generateMonsterZone1Stat(M1, 15);
+        printf("This is an Orc ! \n");
+    }
+    else if(codeStatMonster == 16) {
+        generateMonsterZone2Stat(M1, 16);
+        printf("This is a Troll ! \n");
+    }
+    else if(codeStatMonster == 17) {
+        generateMonsterZone2Stat(M1, 16); 
+        printf("This is a Wapiti ! \n");
+    }
+    else if(codeStatMonster == 18) {
+        generateMonsterZone3Stat(M1, 18); 
+        printf("This is a Noe le Sbire ! \n");
+    }
+    else if(codeStatMonster == 19) {
+        generateMonsterZone3Stat(M1, 19); 
+        printf("This is a Nathanael Le Devoreur d'enfant ! \n");
+    }
 
     printf("You have %d HP, The monster have %d \n", J1->hp, M1->hp);
-    while (J1->hp > 0 && M1->hp > 0) {
+    while(J1->hp > 0 && M1->hp > 0){
         printf("   -     Action :     - ");
         printf("\n");
         printf("   -     Attack (1)   - ");
@@ -210,28 +238,29 @@ void fightEast(joueur* J1, int** mat) {
         printf("   -     Heal (2)     - ");
         printf("\n");
         scanf("%d", &actionCombat);
-        if (actionCombat > 2 || actionCombat < 1) {
-            printf("Choix invalide, réessayer !");
+        if(actionCombat > 2 || actionCombat < 1) {
+            printf("Choix invalide, rÃƒÂ©essayer !");
             printf("\n");
             scanf("%d", &actionCombat);
         }
-        else if (actionCombat == 1) {
-            if (J1->hp > 0 && M1->hp > 0) {
-                M1->hp = (M1->hp) - (J1->attack);
-                J1->hp = (J1->hp) - (M1->attack);
+        else if(actionCombat == 1) {
+            if(J1->hp > 0 && M1->hp > 0){
+                M1->hp = (M1->hp)-(J1->attack);
+                J1->hp = (J1->hp)-(M1->attack);
                 printf("You have %d HP, The monster have %d \n", J1->hp, M1->hp);
-                leveling(20, J1);
-                if (J1->hp == 0) {
+                // leveling(20,J1);
+                if(J1->hp == 0) {
                     printf("You are dead. \n");
                 }
-                else if (M1->hp <= 0) {
+                else if(M1->hp <= 0) {
                     printf("You defeat the monster ! \n");
-                    mat[J1->posY][(J1->posX) + 1] = 0;
+                    mat[J1->posY][(J1->posX)+1] = 0;
+                    leveling(20,J1);
                 }
             }
         }
-        else if (actionCombat == 2) {
-            printf("Vous avez décidé de vous heal ! \n");
+        else if(actionCombat == 2) {
+            printf("Vous avez dÃƒÂ©cidÃƒÂ© de vous heal ! \n");
             J1->hp = J1->hp + 5;
             printf("Vous regagnez 5 PV ! \n");
         }
@@ -239,19 +268,39 @@ void fightEast(joueur* J1, int** mat) {
     free(M1);
 }
 
-void fightWest(joueur* J1, int** mat) {
+
+void fightWest(joueur *J1,int ** mat, int codeStatMonster) {
     int actionCombat;
-    // * Initialization of a Monster
-    monster* M1 = malloc(sizeof(monster));
-    M1->hp = 5;
-    M1->hpMAX = 5;
-    M1->attack = 2;
-    M1->posX = 1;
-    M1->posY = 2;
-    M1->name = 12;
+    monster *M1 = malloc(sizeof(monster));
+    
+    if(codeStatMonster == 14) {
+        generateMonsterZone1Stat(M1, 14);
+        printf("This is a Gobelins ! \n");
+    }
+    else if(codeStatMonster == 15) {
+        generateMonsterZone1Stat(M1, 15);
+        printf("This is an Orc ! \n");
+    }
+    else if(codeStatMonster == 16) {
+        generateMonsterZone2Stat(M1, 16);
+        printf("This is a Troll ! \n");
+    }
+    else if(codeStatMonster == 17) {
+        generateMonsterZone2Stat(M1, 16); 
+        printf("This is a Wapiti ! \n");
+    }
+    else if(codeStatMonster == 18) {
+        generateMonsterZone3Stat(M1, 18); 
+        printf("This is a Noe le Sbire ! \n");
+    }
+    else if(codeStatMonster == 19) {
+        generateMonsterZone3Stat(M1, 19); 
+        printf("This is a Nathanael Le Devoreur d'enfant ! \n");
+    }
 
     printf("You have %d HP, The monster have %d \n", J1->hp, M1->hp);
-    while (J1->hp > 0 && M1->hp > 0) {
+    while(J1->hp > 0 && M1->hp > 0){
+
         printf("   -     Action :     - ");
         printf("\n");
         printf("   -     Attack (1)   - ");
@@ -259,37 +308,41 @@ void fightWest(joueur* J1, int** mat) {
         printf("   -     Heal (2)     - ");
         printf("\n");
         scanf("%d", &actionCombat);
-        if (actionCombat > 2 || actionCombat < 1) {
-            printf("Choix invalide, réessayer !");
+
+        if(actionCombat > 2 || actionCombat < 1) {
+            printf("Choix invalide, rÃƒÂ©essayer !");
             printf("\n");
             scanf("%d", &actionCombat);
         }
-        else if (actionCombat == 1) {
-            if (J1->hp > 0 && M1->hp > 0) {
-                M1->hp = (M1->hp) - (J1->attack);
-                J1->hp = (J1->hp) - (M1->attack);
+        else if(actionCombat == 1) {
+            if(J1->hp > 0 && M1->hp > 0){
+                M1->hp = (M1->hp)-(J1->attack);
+                J1->hp = (J1->hp)-(M1->attack);
                 printf("You have %d HP, The monster have %d \n", J1->hp, M1->hp);
-                leveling(20, J1);
-                if (J1->hp == 0) {
+                // leveling(20,J1);
+                if(J1->hp == 0) {
                     printf("You are dead. \n");
                 }
-                else if (M1->hp <= 0) {
+                else if(M1->hp <= 0) {
                     printf("You defeat the monster ! \n");
-                    mat[J1->posY][(J1->posX) - 1] = 0;
+                    mat[J1->posY][(J1->posX)-1] = 0;
+                    leveling(20,J1);
                 }
             }
         }
-        else if (actionCombat == 2) {
-            printf("Vous avez décidé de vous heal ! \n");
+        else if(actionCombat == 2) {
+            printf("Vous avez dÃƒÂ©cidÃƒÂ© de vous heal ! \n");
             J1->hp = J1->hp + 5;
             printf("Vous regagnez 5 PV ! \n");
         }
     }
     free(M1);
 }
+
 
 
 void actionCaseUsed(joueur* J1, int** mat, char dir, int row) {
+
     int actionChoised;
 
     printf("   -     Action :     - ");
@@ -298,31 +351,32 @@ void actionCaseUsed(joueur* J1, int** mat, char dir, int row) {
     printf("\n");
     printf("   -     Leave (2)    - ");
     printf("\n");
-
     scanf("%d", &actionChoised);
-    if (actionChoised > 2 || actionChoised < 1) {
-        printf("Choix invalide, réessayer !");
+    if(actionChoised > 2 || actionChoised < 1) {
+        printf("Choix invalide, rÃƒÂ©essayer !");
         printf("\n");
         scanf("%d", &actionChoised);
     }
-    else if (actionChoised == 1 && dir == 's') {
-        int codeStatMonster = mat[(J1->posY) + 1][J1->posX];
-        fightSouth(J1, mat, codeStatMonster);
+    else if(actionChoised == 1 && dir == 's') {
+        int codeStatMonster = mat[(J1->posY)+1][J1->posX];
+        fightSouth(J1,mat,codeStatMonster);
     }
-    else if (actionChoised == 1 && dir == 'n') {
-        int codeStatMonster = mat[(J1->posY) - 1][J1->posX];
-        fightNorth(J1, mat, codeStatMonster);
+    else if(actionChoised == 1 && dir == 'n') {
+        int codeStatMonster = mat[(J1->posY)-1][J1->posX];
+        fightNorth(J1,mat,codeStatMonster);
     }
-    else if (actionChoised == 1 && dir == 'e') {
-        fightEast(J1, mat);
+    else if(actionChoised == 1 && dir == 'e') {
+        int codeStatMonster = mat[J1->posY][(J1->posX)+1];
+        fightEast(J1,mat,codeStatMonster);
     }
-    else if (actionChoised == 1 && dir == 'w') {
-        fightWest(J1, mat);
+    else if(actionChoised == 1 && dir == 'w') {
+        int codeStatMonster = mat[J1->posY][(J1->posX)-1];
+        fightWest(J1,mat,codeStatMonster);
     }
-    else if (actionChoised == 2) {
-        printf("Vous avez décidé de fuir, comme c'est pitoyable.\n");
+    else if(actionChoised == 2) {
+        printf("Vous avez dÃƒÂ©cidÃƒÂ© de fuir, comme c'est pitoyable.\n");
         printf("In which direction would you move?\n");
-        movement(J1, mat, row);
+        movement(J1,mat,row);
     }
 }
 
@@ -336,7 +390,9 @@ void fall(joueur* J1, int** mat, int row) {
     } while (fly != 'y' && fly != 'n');
     if (fly == 'y') {
         printf("\n");
-        printf("Vous réalisé ce pas de plus, et vous vous rendez compte qu'aucun pouvoir ne vous ai attribué,\nle seul chemin qui vous attend est celuis qui vous guidera vers l'éternelle profondeur des abysses.\n");
+      
+        printf("Vous rÃ¯Â¿Â½alisÃ¯Â¿Â½ ce pas de plus, et vous vous rendez compte qu'aucun pouvoir ne vous ai attribuÃ¯Â¿Â½,\nle seul chemin qui vous attend est celuis qui vous guidera vers l'Ã¯Â¿Â½ternelle profondeur des abysses.\n");
+
         printf("\n");
         printf("You are dead...");
         J1->hp = 0;
@@ -401,19 +457,20 @@ void southMov(joueur* J1, int** mat, int row) {
         }
         else if (mat[(J1->posY) + 1][J1->posX] == -2) {
             if (J1->niveau < 3) {
-                printf("Ce portail est réservé au joueur tromphant d'un niveau supérieur à 3 !\n");
+
+                printf("Ce portail est rÃ©servÃ© au joueur tromphant d'un niveau supÃ©rieur Ã  3 !\n");
             }
             else {
-                printf("Téléportation vers la zone 2 !\n");
+                printf("TÃ©lÃ©portation vers la zone 2 !\n");
                 teleportationZone(J1, mat);
             }
         }
         else if (mat[(J1->posY) + 1][J1->posX] == -3) {
             if (J1->niveau < 6) {
-                printf("Ce portail est réservé au joueur tromphant d'un niveau supérieur à 6 !\n");
+                printf("Ce portail est rÃ©servÃ© au joueur tromphant d'un niveau supÃ©rieur Ã  6 !\n");
             }
             else {
-                printf("Téléportation vers la zone 3 !\n");
+                printf("TÃ©lÃ©portation vers la zone 3 !\n");
                 teleportationZone(J1, mat);
             }
         }
@@ -469,19 +526,19 @@ void westMov(joueur* J1, int** mat, int row) {
         }
         else if (mat[J1->posY][(J1->posX) - 1] == -2) {
             if (J1->niveau < 3) {
-                printf("Ce portail est réservé au joueur tromphant d'un niveau supérieur à 3 !\n");
+                printf("Ce portail est rÃ©servÃ© au joueur tromphant d'un niveau supÃ©rieur Ã  3 !\n");
             }
             else {
-                printf("Téléportation vers la zone 2 !\n");
+                printf("TÃ©lÃ©portation vers la zone 2 !\n");
                 teleportationZone(J1, mat);
             }
         }
         else if (mat[J1->posY][(J1->posX) - 1] == -3) {
             if (J1->niveau < 6) {
-                printf("Ce portail est réservé au joueur tromphant d'un niveau supérieur à 6 !\n");
+                printf("Ce portail est rÃ©servÃ© au joueur tromphant d'un niveau supÃ©rieur Ã  6 !\n");
             }
             else {
-                printf("Téléportation vers la zone 3 !\n");
+                printf("TÃ©lÃ©portation vers la zone 3 !\n");
                 teleportationZone(J1, mat);
             }
         }
