@@ -45,6 +45,11 @@ item** initInventory() {
     for (int i = 0; i < 10; i++) {
         res[i] = 0;
     }
+    putInInventory(res, 1);//ajout epee en bois
+    putInInventory(res, 2);//ajout pioche en bois
+    putInInventory(res, 3);//ajout serpe en bois
+    putInInventory(res, 4);//ajout hache en bois
+
     return res;
 }
 // Ajoute un item à l'inventaire, retourne 1 si réussi, sinon retourne 0
