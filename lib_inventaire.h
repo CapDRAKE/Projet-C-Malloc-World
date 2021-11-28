@@ -28,4 +28,11 @@ item* initTools(int code);
 item* initPotion(int code);
 int decrementDurability(item* litem);
 
+char* nameItem(int code);
+char* nameTool(int code);
+char* nameResource(int code);
+char* namePotion(int code);
+char* nameArmor(int code);
+char* nameWeapon(int code);
+
 #endif
