@@ -459,6 +459,7 @@ void northMov(joueur* J1, int** mat, int row) {
         }
         else if (mat[(J1->posY) - 1][J1->posX] >= 100 && mat[(J1->posY) - 1][J1->posX] <= 110) {
             printf("There is a ressource up there ! \n");
+            actionCaseUsedRessources(J1, mat, 'n', row);
         }
         else if (mat[(J1->posY) - 1][J1->posX] == 2) {
             printf("There is a NPC up there ! \n");
@@ -490,26 +491,26 @@ void southMov(joueur* J1, int** mat, int row) {
         }
         else if (mat[(J1->posY) + 1][J1->posX] >= 100 && mat[(J1->posY) + 1][J1->posX] <= 110) {
             printf("There is a ressource up there ! \n");
+            actionCaseUsedRessources(J1, mat, 's', row);
         }
         else if (mat[(J1->posY) + 1][J1->posX] == 2) {
             printf("There is a NPC up there ! \n");
         }
         else if (mat[(J1->posY) + 1][J1->posX] == -2) {
             if (J1->niveau < 3) {
-
-                printf("Ce portail est réservé au joueur tromphant d'un niveau supérieur à 3 !\n");
+                printf("Ce portail est r�serv� au joueur tromphant d'un niveau sup�rieur � 3 !\n");
             }
             else {
-                printf("Téléportation vers la zone 2 !\n");
+                printf("T�l�portation vers la zone 2 !\n");
                 teleportationZone(J1, mat);
             }
         }
         else if (mat[(J1->posY) + 1][J1->posX] == -3) {
             if (J1->niveau < 6) {
-                printf("Ce portail est réservé au joueur tromphant d'un niveau supérieur à 6 !\n");
+                printf("Ce portail est r�serv� au joueur tromphant d'un niveau sup�rieur � 6 !\n");
             }
             else {
-                printf("Téléportation vers la zone 3 !\n");
+                printf("T�l�portation vers la zone 3 !\n");
                 teleportationZone(J1, mat);
             }
         }
@@ -534,6 +535,7 @@ void eastMov(joueur* J1, int** mat, int row) {
         }
         else if (mat[J1->posY][(J1->posX) + 1] >= 100 && mat[J1->posY][(J1->posX) + 1] <= 110) {
             printf("There is a ressource up there ! \n");
+            actionCaseUsedRessources(J1, mat, 'e', row);
         }
         else if (mat[J1->posY][(J1->posX) + 1] == 2) {
             printf("There is a NPC up there ! \n");
@@ -559,25 +561,26 @@ void westMov(joueur* J1, int** mat, int row) {
         }
         else if (mat[J1->posY][(J1->posX) - 1] >= 100 && mat[J1->posY][(J1->posX) - 1] <= 110) {
             printf("There is a ressource up there ! \n");
+            actionCaseUsedRessources(J1, mat, 'w', row);
         }
         else if (mat[J1->posY][(J1->posX) - 1] == 2) {
             printf("There is a NPC up there ! \n");
         }
         else if (mat[J1->posY][(J1->posX) - 1] == -2) {
             if (J1->niveau < 3) {
-                printf("Ce portail est réservé au joueur tromphant d'un niveau supérieur à 3 !\n");
+                printf("Ce portail est r�serv� au joueur tromphant d'un niveau sup�rieur � 3 !\n");
             }
             else {
-                printf("Téléportation vers la zone 2 !\n");
+                printf("T�l�portation vers la zone 2 !\n");
                 teleportationZone(J1, mat);
             }
         }
         else if (mat[J1->posY][(J1->posX) - 1] == -3) {
             if (J1->niveau < 6) {
-                printf("Ce portail est réservé au joueur tromphant d'un niveau supérieur à 6 !\n");
+                printf("Ce portail est r�serv� au joueur tromphant d'un niveau sup�rieur � 6 !\n");
             }
             else {
-                printf("Téléportation vers la zone 3 !\n");
+                printf("T�l�portation vers la zone 3 !\n");
                 teleportationZone(J1, mat);
             }
         }
