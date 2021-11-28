@@ -10,8 +10,6 @@
 
 
 
-
-
 int afficheMap(int** mat, int rowTriple, int col) {
 
     int i, j;
@@ -108,12 +106,13 @@ int mainMenu() {
     else if (gameChoise == 3) {
         menuInformations();
     }
-
 }
 
 
 
+
 void playGame(joueur* J1, int** mat, int row, int rowTriple) {
+
     int crashtest = 0;
     char choiseMode;
 
@@ -187,20 +186,6 @@ void playGame(joueur* J1, int** mat, int row, int rowTriple) {
 
 
 int main() {
-    //printf("Nous générons un monstre : ");
-    //generateMonster(1, 15);  
-
-    //printf("\n");
-
-    //printf("Nous générons un NPC : ");
-    //generateNpc(16, 30);
-
-
-
-    //system("clear");
-    // char* res = nameItem(34);
-    // printf(res);
-
 
     int** mat, row, rowTriple, col, i, j, n, gameChoise;
 
@@ -209,9 +194,6 @@ int main() {
 
     //Initialisation du coffre du PNJ
     chest* coffre = create_chest();
-
-
-
 
     mainMenu();
 
@@ -254,55 +236,23 @@ int main() {
 
     printf("\n");
 
-    // for(i=0;i<rowTriple;i++) {
-    //     for(j=0;j<col;j++) {
-    //         printf("%d\t", mat[i][j]);
-    //     }
-    //     printf("\n");
-    // }
 
 
     // printf("HP : %d \n HP MAX : %d \n Attack : %d \n POS X : %d \n POS Y : %d \n Name : %d \n",M1->hp, M1->hpMAX, M1->attack, M1->posX, M1->posY, M1->name);
     // Generation des éléments présent sur la carte
-    popMonster(9, row, mat);
+    popMonster(18, row, mat);
     popMonsterZone2(9, row, mat);
+    popMonsterZone3(9, row, mat);
     popNpc(4, row, mat);
     popRessources(9, row, mat);
 
     playGame(J1, mat, row, rowTriple);
-    // Affichage de la carte 
-    // afficheMap(mat, rowTriple, col);
-
-    // printf("\n");
-
-    // movement(J1,mat);
-
-    // printf("\n");
-
-    // printf("Experience : %f \n HP : %d \n HP MAX : %d \n Niveau : %d \n POS X : %d \n POS Y : %d \n Name : %d \n",J1->experience, J1->hp, J1->hpMAX, J1->niveau, J1->posX, J1->posY, J1->name);
-
-    // printf("\n");
-
-    // afficheMap(mat, row);
-
-    // printf("\n");
 
 
     free(mat);
     free(J1);
-    free(coffre);
+    
     return 0;
-
 }
 
 
-// TODO : Faire la TP dans tout les sens.
-// ! 24/11
-
-// TODO : Faire pop des monstres.
-// ! 24/11 - 25/11
-
-// TODO : Fonction de combats et leveling.
-// ! 24/11 - 25/11
-
-// TODO : Comprendre l'inventaire et en crée un pour le joueur.
