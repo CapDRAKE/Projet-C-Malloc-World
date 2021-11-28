@@ -4,6 +4,7 @@
 //Structure du joueur
 struct joueur {
     int niveau;
+
     int experience;
     int hp;
     int hpMAX;
@@ -21,17 +22,26 @@ struct monster {
     int posY;
     int posX;
     int name;
+
 };
 
 //Déclaration de notre structure joueur
 typedef struct joueur joueur;
 
+
 //Déclaration de notre structure monstre
 typedef struct monster monster;
+
 
 //Attaque du joueur
 int attack(){
    return 0; 
+}
+
+
+//Augmentation du level
+void leveling(){
+
 }
 
 //Fuire 
@@ -44,6 +54,7 @@ void droite(int **mat) {
   
 }
 
+
 int generateMonster(int minVal, int maxVal) {
     int codeMonster;
     codeMonster = rand() % 2 + 14;// Random from 1 to 10
@@ -51,6 +62,7 @@ int generateMonster(int minVal, int maxVal) {
 }
 
 int generateMonsterZone2(int minVal, int maxVal) {
+
     int codeMonster;
     codeMonster = rand() % 2 + 16;// Random from 1 to 10
     return codeMonster;
@@ -87,6 +99,7 @@ int popMonster(int max, int row, int** mat) {
     return mat[randomCase][randomCase2];
 }
 
+
 int popMonsterZone2(int max, int row, int** mat) {
     int total = row+1;
     int monster = generateMonsterZone2(16,17);
@@ -112,6 +125,7 @@ int popMonsterZone2(int max, int row, int** mat) {
 }
 
 int popMonsterZone3(int max, int row, int** mat) {
+
     
     int monster = generateMonster(14,15);
     int randomCase = rand() % row;
