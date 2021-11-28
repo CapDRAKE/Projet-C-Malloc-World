@@ -14,6 +14,7 @@ joueur* initPlayer() {
     J1->posY = 0;
     J1->name = 1;
     J1->inventory = initInventory();
+    return J1;
 }
 
 void leveling(int xp, joueur* J1) {
