@@ -12,26 +12,12 @@
 int generateRessources(int minVal, int maxVal ) {
     
     int codeRessources;
-    
-    // -- SINGLE VERSION --
-    codeRessources = rand() % (maxVal-100) + minVal; // Random from 1 to 10
-    
-    //printf("%d", codeNpc);
-    
-    // -- MULTIPLE VERSION --
-    //for(int i=1; i<10; i++) {
-    //    codeNpc = rand() % maxVal + minVal; // Random from 1 to 10
-    //    printf("\n");
-    //    printf("%d", codeNpc);
-    //}  
-    
+    codeRessources = rand() % (maxVal-100) + minVal;
     return codeRessources;
 }
 
 
-
-
-
+// ? Function to print the map during the game
 int afficheMap(int** mat, int rowTriple, int col) {
     
     int i,j;
@@ -44,6 +30,7 @@ int afficheMap(int** mat, int rowTriple, int col) {
     }
 }
 
+// ? Main function - The first one to be executed, The menu
 int mainMenu();
 int menuCommandes() {
     int returnMenu;
@@ -75,13 +62,14 @@ int menuCommandes() {
     }
 }
 
+// ? Function to show the menu - Information
 int menuInformations() {
     int returnMenu;
     printf("\n");
     printf("Auteur :");
     printf("\n");
     printf("\n");
-    printf("- Bastien Lewers : https://github.com/CapDRAKE");
+    printf("- Bastien Leuwers : https://github.com/CapDRAKE");
     printf("\n");
     printf("- Nicolas Cortial : https://github.com/IreshDeragon");
     printf("\n");
@@ -104,6 +92,7 @@ int menuInformations() {
     }
 }
 
+// ? Function to show the main menu
 int mainMenu() {
     int gameChoise;
 
@@ -132,11 +121,12 @@ int mainMenu() {
 }
 
 
-
+// ? The fuction used during the playing loop 
 void playGame(joueur *J1, int** mat, int row, int rowTriple) {
     int crashtest = 0;
     char choiseMode;
     
+    // * While the player life is superior to 0 the game continue
     while(J1->hp > 0) {
         if(J1->hp > 0) {
             printf("\n");
@@ -169,15 +159,18 @@ void playGame(joueur *J1, int** mat, int row, int rowTriple) {
             scanf("%c", &choiseMode);
             printf("\n");
             
+            // * Print player stats
             if(choiseMode == 'c'){
                 printf("Experience : %d \n HP : %d \n HP MAX : %d \n Attack : %d \n Niveau : %d \n POS X : %d \n POS Y : %d \n Name : %d \n",J1->experience, J1->hp, J1->hpMAX, J1->attack, J1->niveau, J1->posX, J1->posY, J1->name);
                 printf("\n");
             }
             
+            // * Use deplacement system
             else if(choiseMode == 'm') {
                 movement(J1,mat,row);
                 printf("\n");
             }
+            // * Use deplacement system by selection a direction
             else if(choiseMode == 'n')
                 northMov(J1,mat,row);
                 
@@ -194,7 +187,7 @@ void playGame(joueur *J1, int** mat, int row, int rowTriple) {
     }
 }
 
-
+// ? Main function, used to generate all the ressources, monster, npc, map and the player
 int main() {
     
     int **mat, row, rowTriple, col, i, j, n, gameChoise;
@@ -244,16 +237,6 @@ int main() {
     
     printf("\n");
     
-    // for(i=0;i<rowTriple;i++) {
-    //     for(j=0;j<col;j++) {
-    //         printf("%d\t", mat[i][j]);
-    //     }
-    //     printf("\n");
-    // }
-    
-    
-    // printf("HP : %d \n HP MAX : %d \n Attack : %d \n POS X : %d \n POS Y : %d \n Name : %d \n",M1->hp, M1->hpMAX, M1->attack, M1->posX, M1->posY, M1->name);
-    // Generation des éléments présent sur la carte
     popMonster(18, row, mat);
     popMonsterZone2(9, row, mat);
     popMonsterZone3(9, row, mat);
@@ -276,16 +259,4 @@ int main() {
     return 0;
     
 }
-
-
-// TODO : Faire la TP dans tout les sens.
-// ! 24/11
-
-// TODO : Faire pop des monstres.
-// ! 24/11 - 25/11
-
-// TODO : Fonction de combats et leveling.
-// ! 24/11 - 25/11
-
-// TODO : Comprendre l'inventaire et en crée un pour le joueur.
 

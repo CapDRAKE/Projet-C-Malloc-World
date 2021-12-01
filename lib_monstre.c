@@ -3,13 +3,14 @@
 
 #include "lib_monstre.h"
 
-
+// ? Generate a random code for the monster of the 1st zone
 int generateMonster(int minVal, int maxVal) {
     int codeMonster;
     codeMonster = rand() % 2 + 14;// Random from 1 to 10
     return codeMonster;
 }
 
+// ? Generate a random code for the monster of the 2nd zone
 int generateMonsterZone2(int minVal, int maxVal) {
 
     int codeMonster;
@@ -17,13 +18,14 @@ int generateMonsterZone2(int minVal, int maxVal) {
     return codeMonster;
 }
 
+// ? Generate a random code for the monster of the 3rd zone
 int generateMonsterZone3(int minVal, int maxVal) {
     int codeMonster;
     codeMonster = rand() % 2 + 18;// Random from 1 to 10
     return codeMonster;
 }
 
-
+// ? Generate the stats of the Monster of the 1st zone thanks to his ID
 void generateMonsterZone1Stat(monster *M1, int codeMonsterStat) {
     switch( codeMonsterStat ){
         case 14:
@@ -39,6 +41,7 @@ void generateMonsterZone1Stat(monster *M1, int codeMonsterStat) {
     }
 }
 
+// ? Generate the stats of the Monster of the 2nd zone thanks to his ID
 void generateMonsterZone2Stat(monster *M1, int codeMonsterStat) {
     switch( codeMonsterStat ){
         case 16:
@@ -54,6 +57,7 @@ void generateMonsterZone2Stat(monster *M1, int codeMonsterStat) {
     }
 }
 
+// ? Generate the stats of the Monster of the 3rd zone thanks to his ID
 void generateMonsterZone3Stat(monster *M1, int codeMonsterStat) {
     switch( codeMonsterStat ){
         case 18:
